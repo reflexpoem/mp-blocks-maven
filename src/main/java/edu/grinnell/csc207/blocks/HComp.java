@@ -71,7 +71,23 @@ public class HComp implements AsciiBlock {
    *   if i is outside the range of valid rows.
    */
   public String row(int i) throws Exception {
-    return "";  // STUB
+    StringBuilder rowStr = new StringBuilder();
+    if ((i < 0)|| (i >= this.height())){
+      throw new Exception("Invalid row" + i);
+    } //If the row is not within the block
+    else if (this.align == VAlignment.TOP) {
+      for (int j = 0; j < this.blocks.length; j++) {
+      String blockStr = this.blocks[j].row(i % this.blocks[j].height());
+      rowStr.append(blockStr); 
+    }
+    else if (this.align == VAlignment.CENTER){
+      for (int j = 0; j < this.blocks.length; j++) {
+      }
+
+    }
+    else if (this.align == VAlignment.BOTTOM){
+
+    }
   } // row(int)
 
   /**
