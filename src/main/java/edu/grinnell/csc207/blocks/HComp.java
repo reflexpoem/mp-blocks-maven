@@ -71,23 +71,53 @@ public class HComp implements AsciiBlock {
    *   if i is outside the range of valid rows.
    */
   public String row(int i) throws Exception {
+
     StringBuilder rowStr = new StringBuilder();
     if ((i < 0)|| (i >= this.height())){
       throw new Exception("Invalid row" + i);
     } //If the row is not within the block
     else if (this.align == VAlignment.TOP) {
       for (int j = 0; j < this.blocks.length; j++) {
-      String blockStr = this.blocks[j].row(i % this.blocks[j].height());
-      rowStr.append(blockStr); 
+        if(i <= this.blocks[j].height()){
+          String blockStr = this.blocks[j].row(i % this.blocks[j].height());
+          rowStr.append(blockStr); 
+        }
+        else {
+          rowStr.append(" ".repeat(this.blocks[j].width()));
+        }
+      }
     }
     else if (this.align == VAlignment.CENTER){
       for (int j = 0; j < this.blocks.length; j++) {
+        int diffTop = (this.height() - this.blocks[j].height()) / 2;
+        int diffBottom = diffTop;
+        if (((this.height() - this.blocks[j].height()) % 2) != 0){
+          diffBottom++;
+        }
+        if(i < diffTop){
+          rowStr.append(" ".repeat(this.blocks[j].width()));
+        } else if (i < this.height() - diffBottom){
+          String blockStr = this.blocks[j].row(i % this.blocks[j].height());
+          rowStr.append(blockStr); 
+        }
+        else {
+          rowStr.append(" ".repeat(this.blocks[j].width()));
+        }
       }
-
     }
     else if (this.align == VAlignment.BOTTOM){
-
+      for (int j = 0; j < this.blocks.length; j++) {
+        int diff = this.height() - this.blocks[j].height();
+        if(i < diff){
+          rowStr.append(" ".repeat(this.blocks[j].width()));
+        }
+        else {
+          String blockStr = this.blocks[j].row(i % this.blocks[j].height());
+          rowStr.append(blockStr); 
+        }
+      }
     }
+    return rowStr.toString();
   } // row(int)
 
   /**
@@ -96,7 +126,13 @@ public class HComp implements AsciiBlock {
    * @return the number of rows
    */
   public int height() {
-    return 0;   // STUB
+    int maxHeight = 0;
+    for (int k = 0; k < this.blocks.length; k++){
+      if (this.blocks[k].height() > maxHeight){
+        maxHeight = this.blocks[k].height();
+      }
+    }
+    return maxHeight;
   } // height()
 
   /**
@@ -105,7 +141,11 @@ public class HComp implements AsciiBlock {
    * @return the number of columns
    */
   public int width() {
-    return 0;   // STUB
+    int totalWidth = 0;
+    for (int i = 0; i < this.blocks.length; i++){
+      totalWidth += this.blocks[i].width();
+    }
+    return totalWidth;
   } // width()
 
   /**

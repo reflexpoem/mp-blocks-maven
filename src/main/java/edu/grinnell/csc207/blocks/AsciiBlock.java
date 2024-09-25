@@ -136,4 +136,5 @@ public interface AsciiBlock {
    *    false otherwise.
    */
   public boolean eqv(AsciiBlock other);
+
 } // interface AsciiBlock

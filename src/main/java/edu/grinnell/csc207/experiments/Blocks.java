@@ -6,7 +6,9 @@ import edu.grinnell.csc207.blocks.AsciiBlock;
 import edu.grinnell.csc207.blocks.Boxed;
 import edu.grinnell.csc207.blocks.Empty;
 import edu.grinnell.csc207.blocks.Grid;
+import edu.grinnell.csc207.blocks.HComp;
 import edu.grinnell.csc207.blocks.Rect;
+import edu.grinnell.csc207.blocks.VAlignment;
 
 
 /**
@@ -147,6 +149,17 @@ public class Blocks {
 
     AsciiBlock test2 = new Rect('a', 3, 4);
     figure(pen, "rect1", test2);
+
+    AsciiBlock a = new Rect('A', 5, 2);
+    AsciiBlock b = new Rect('B', 3, 3);
+    AsciiBlock c = new Rect('C', 2, 6);
+
+    HComp test3 = new HComp(VAlignment.BOTTOM, new AsciiBlock[] {a, b, c});
+    figure(pen, "HComp1", test3);
+
+
+
+
 
 
     pen.close();
