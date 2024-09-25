@@ -6,10 +6,12 @@ import edu.grinnell.csc207.blocks.AsciiBlock;
 import edu.grinnell.csc207.blocks.Boxed;
 import edu.grinnell.csc207.blocks.Empty;
 import edu.grinnell.csc207.blocks.Grid;
+import edu.grinnell.csc207.blocks.HAlignment;
 import edu.grinnell.csc207.blocks.HComp;
+import edu.grinnell.csc207.blocks.Line;
 import edu.grinnell.csc207.blocks.Rect;
 import edu.grinnell.csc207.blocks.VAlignment;
-
+import edu.grinnell.csc207.blocks.VComp;
 
 /**
  * Experiments with ASCII blocks.
@@ -156,6 +158,15 @@ public class Blocks {
 
     HComp test3 = new HComp(VAlignment.BOTTOM, new AsciiBlock[] {a, b, c});
     figure(pen, "HComp1", test3);
+
+    Line v1 = new Line("One");
+    Line v7 = new Line("Seven");
+    Line v11 = new Line("Eleven");
+    Line v19 = new Line("Nineteen");
+
+    VComp test4 = new VComp(HAlignment.LEFT, new AsciiBlock[] {v1, v7, v11, v19});
+    figure(pen, "VComp1", test4);
+
 
 
 

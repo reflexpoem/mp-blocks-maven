@@ -2,6 +2,7 @@ package edu.grinnell.csc207.blocks;
 
 import java.util.Arrays;
 
+
 /**
  * The vertical composition of blocks.
  *
@@ -72,7 +73,36 @@ public class VComp implements AsciiBlock {
    *   if i is outside the range of valid rows.
    */
   public String row(int i) throws Exception {
-    return "";  // STUB
+    StringBuilder rowStr = new StringBuilder();
+    if ((i < 0) || (i > this.height())){
+      throw new Exception("Row is outside of bounds");
+    } else if (this.align == HAlignment.LEFT) {
+      for (int j = 0; j < this.blocks.length; j++){
+        String blockStr = this.blocks[j].row(i % this.blocks[j].height());
+        rowStr.append(blockStr);
+        rowStr.append(" ".repeat(this.width() - this.blocks[j].width()));
+      }
+    } else if (this.align == HAlignment.CENTER) {
+      for (int j = 0; j < this.blocks.length; j++){
+        int diffLeft = (this.width() - this.blocks[j].width()) / 2;
+        int diffRight = diffLeft;
+        if ((this.width() - this.blocks[j].width()) % 2 != 0){
+          diffRight++;
+        }
+        rowStr.append(" ".repeat(diffLeft));
+        String blockStr = this.blocks[j].row(i % this.blocks[j].height());
+        rowStr.append(blockStr);  
+        rowStr.append(" ".repeat(diffRight));
+      }
+    } else if (this.align == HAlignment.RIGHT) {
+      for (int j = 0; j < this.blocks.length; j++) {
+        int diff = this.width() - this.blocks[j].width();
+        rowStr.append(" ".repeat(diff));
+        String blockStr = this.blocks[j].row(i % this.blocks[j].height());
+        rowStr.append(blockStr);
+      }         
+    }    
+    return rowStr.toString(); 
   } // row(int)
 
   /**
@@ -81,7 +111,11 @@ public class VComp implements AsciiBlock {
    * @return the number of rows
    */
   public int height() {
-    return 0;   // STUB
+    int finalHeight = 0;
+    for (int i = 0; i < this.blocks.length; i++){
+      finalHeight += this.blocks[i].height();
+    }
+    return finalHeight;   // STUB
   } // height()
 
   /**
@@ -90,7 +124,13 @@ public class VComp implements AsciiBlock {
    * @return the number of columns
    */
   public int width() {
-    return 0;   // STUB
+    int maxWidth = 0;
+    for (int i = 0; i < this.blocks.length; i++){
+      if (this.blocks[i].width() > maxWidth){
+        maxWidth = this.blocks[i].width();
+      }
+    }
+    return maxWidth;
   } // width()
 
   /**
