@@ -167,6 +167,12 @@ public class Blocks {
     VComp test4 = new VComp(HAlignment.LEFT, new AsciiBlock[] {v1, v7, v11, v19});
     figure(pen, "VComp1", test4);
 
+    VComp test5 = new VComp(HAlignment.CENTER, new AsciiBlock[] {v1, v7, v11, v19});
+    figure(pen, "VComp1", test5);
+
+    VComp test6 = new VComp(HAlignment.RIGHT, new AsciiBlock[] {v1, v7, v11, v19});
+    figure(pen, "VComp1", test6);
+
 
 
 

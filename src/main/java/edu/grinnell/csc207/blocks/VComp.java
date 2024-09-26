@@ -7,8 +7,8 @@ import java.util.Arrays;
  * The vertical composition of blocks.
  *
  * @author Samuel A. Rebelsky
- * @author Your Name Here
- * @author Your Name Here
+ * @author Sebastian
+ * @author Sunjae
  */
 public class VComp implements AsciiBlock {
   // +--------+------------------------------------------------------------
@@ -77,30 +77,24 @@ public class VComp implements AsciiBlock {
     if ((i < 0) || (i > this.height())){
       throw new Exception("Row is outside of bounds");
     } else if (this.align == HAlignment.LEFT) {
-      for (int j = 0; j < this.blocks.length; j++){
-        String blockStr = this.blocks[j].row(i % this.blocks[j].height());
+        String blockStr = this.blocks[i].row(i % this.blocks[i].height());
         rowStr.append(blockStr);
-        rowStr.append(" ".repeat(this.width() - this.blocks[j].width()));
-      }
+        rowStr.append(" ".repeat(this.width() - this.blocks[i].width()));
     } else if (this.align == HAlignment.CENTER) {
-      for (int j = 0; j < this.blocks.length; j++){
-        int diffLeft = (this.width() - this.blocks[j].width()) / 2;
+        int diffLeft = (this.width() - this.blocks[i].width()) / 2;
         int diffRight = diffLeft;
-        if ((this.width() - this.blocks[j].width()) % 2 != 0){
+        if ((this.width() - this.blocks[i].width()) % 2 != 0){
           diffRight++;
         }
         rowStr.append(" ".repeat(diffLeft));
-        String blockStr = this.blocks[j].row(i % this.blocks[j].height());
+        String blockStr = this.blocks[i].row(i % this.blocks[i].height());
         rowStr.append(blockStr);  
         rowStr.append(" ".repeat(diffRight));
-      }
     } else if (this.align == HAlignment.RIGHT) {
-      for (int j = 0; j < this.blocks.length; j++) {
-        int diff = this.width() - this.blocks[j].width();
+        int diff = this.width() - this.blocks[i].width();
         rowStr.append(" ".repeat(diff));
-        String blockStr = this.blocks[j].row(i % this.blocks[j].height());
-        rowStr.append(blockStr);
-      }         
+        String blockStr = this.blocks[i].row(i % this.blocks[i].height());
+        rowStr.append(blockStr);      
     }    
     return rowStr.toString(); 
   } // row(int)
