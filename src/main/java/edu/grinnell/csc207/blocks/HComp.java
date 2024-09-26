@@ -30,15 +30,11 @@ public class HComp implements AsciiBlock {
   /**
    * Build a horizontal composition of two blocks.
    *
-   * @param alignment
-   *   The way in which the blocks should be aligned.
-   * @param leftBlock
-   *   The block on the left.
-   * @param rightBlock
-   *   The block on the right.
+   * @param alignment The way in which the blocks should be aligned.
+   * @param leftBlock The block on the left.
+   * @param rightBlock The block on the right.
    */
-  public HComp(VAlignment alignment, AsciiBlock leftBlock,
-      AsciiBlock rightBlock) {
+  public HComp(VAlignment alignment, AsciiBlock leftBlock, AsciiBlock rightBlock) {
     this.align = alignment;
     this.blocks = new AsciiBlock[] {leftBlock, rightBlock};
   } // HComp(VAlignment, AsciiBlock, AsciiBlock)
@@ -46,10 +42,8 @@ public class HComp implements AsciiBlock {
   /**
    * Build a horizontal composition of multiple blocks.
    *
-   * @param alignment
-   *   The alignment of the blocks.
-   * @param blocksToCompose
-   *   The blocks we will be composing.
+   * @param alignment The alignment of the blocks.
+   * @param blocksToCompose The blocks we will be composing.
    */
   public HComp(VAlignment alignment, AsciiBlock[] blocksToCompose) {
     this.align = alignment;
@@ -67,52 +61,46 @@ public class HComp implements AsciiBlock {
    *
    * @return row i.
    *
-   * @exception Exception
-   *   if i is outside the range of valid rows.
+   * @exception Exception if i is outside the range of valid rows.
    */
   public String row(int i) throws Exception {
     StringBuilder rowStr = new StringBuilder();
-    if ((i < 0)|| (i >= this.height())){
+    if ((i < 0) || (i >= this.height())) {
       throw new Exception("Invalid row" + i);
-    } //If the row is not within the block
+    } // If the row is not within the block
     else if (this.align == VAlignment.TOP) {
       for (int j = 0; j < this.blocks.length; j++) {
-        if(i <= this.blocks[j].height()){
+        if (i <= this.blocks[j].height()) {
           String blockStr = this.blocks[j].row(i % this.blocks[j].height());
-          rowStr.append(blockStr); 
-        }
-        else {
+          rowStr.append(blockStr);
+        } else {
           rowStr.append(" ".repeat(this.blocks[j].width()));
         }
       }
-    }
-    else if (this.align == VAlignment.CENTER){
+    } else if (this.align == VAlignment.CENTER) {
       for (int j = 0; j < this.blocks.length; j++) {
         int diffTop = (this.height() - this.blocks[j].height()) / 2;
         int diffBottom = diffTop;
-        if (((this.height() - this.blocks[j].height()) % 2) != 0){
+        if (((this.height() - this.blocks[j].height()) % 2) != 0) {
           diffBottom++;
         }
-        if(i < diffTop){
+        if (i < diffTop) {
           rowStr.append(" ".repeat(this.blocks[j].width()));
-        } else if (i < this.height() - diffBottom){
+        } else if (i < this.height() - diffBottom) {
           String blockStr = this.blocks[j].row(i % this.blocks[j].height());
-          rowStr.append(blockStr); 
-        }
-        else {
+          rowStr.append(blockStr);
+        } else {
           rowStr.append(" ".repeat(this.blocks[j].width()));
         }
       }
-    }
-    else if (this.align == VAlignment.BOTTOM){
+    } else if (this.align == VAlignment.BOTTOM) {
       for (int j = 0; j < this.blocks.length; j++) {
         int diff = this.height() - this.blocks[j].height();
-        if(i < diff){
+        if (i < diff) {
           rowStr.append(" ".repeat(this.blocks[j].width()));
-        }
-        else {
+        } else {
           String blockStr = this.blocks[j].row(i % this.blocks[j].height());
-          rowStr.append(blockStr); 
+          rowStr.append(blockStr);
         }
       }
     }
@@ -126,8 +114,8 @@ public class HComp implements AsciiBlock {
    */
   public int height() {
     int maxHeight = 0;
-    for (int k = 0; k < this.blocks.length; k++){
-      if (this.blocks[k].height() > maxHeight){
+    for (int k = 0; k < this.blocks.length; k++) {
+      if (this.blocks[k].height() > maxHeight) {
         maxHeight = this.blocks[k].height();
       }
     }
@@ -141,7 +129,7 @@ public class HComp implements AsciiBlock {
    */
   public int width() {
     int totalWidth = 0;
-    for (int i = 0; i < this.blocks.length; i++){
+    for (int i = 0; i < this.blocks.length; i++) {
       totalWidth += this.blocks[i].width();
     }
     return totalWidth;
@@ -150,13 +138,11 @@ public class HComp implements AsciiBlock {
   /**
    * Determine if another block is structurally equivalent to this block.
    *
-   * @param other
-   *   The block to compare to this block.
+   * @param other The block to compare to this block.
    *
-   * @return true if the two blocks are structurally equivalent and
-   *    false otherwise.
+   * @return true if the two blocks are structurally equivalent and false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    return false;       // STUB
+    return false; // STUB
   } // eqv(AsciiBlock)
 } // class HComp
