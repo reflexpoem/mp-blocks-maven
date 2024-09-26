@@ -70,7 +70,7 @@ public class HComp implements AsciiBlock {
     } // If the row is not within the block
     else if (this.align == VAlignment.TOP) {
       for (int j = 0; j < this.blocks.length; j++) {
-        if (i <= this.blocks[j].height()) {
+        if (i < this.blocks[j].height()) {
           String blockStr = this.blocks[j].row(i % this.blocks[j].height());
           rowStr.append(blockStr);
         } else {
@@ -143,6 +143,18 @@ public class HComp implements AsciiBlock {
    * @return true if the two blocks are structurally equivalent and false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    return false; // STUB
+    if (!(other instanceof HComp)){
+      return false;
+    }
+    HComp comp = (HComp) other;
+    if ((this.blocks.length != comp.blocks.length) || (this.align != comp.align)){
+      return false;
+    }
+    for (int i = 0; i < this.blocks.length; i++){
+      if(this.blocks[i].eqv(comp.blocks[i])){
+        return false;
+      }
+    }
+    return true;
   } // eqv(AsciiBlock)
 } // class HComp

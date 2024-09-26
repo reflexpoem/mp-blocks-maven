@@ -67,26 +67,30 @@ public class VComp implements AsciiBlock {
    */
   public String row(int i) throws Exception {
     StringBuilder rowStr = new StringBuilder();
-    if ((i < 0) || (i > this.height())) {
+    int currentBlock = 0;
+    for (int k = this.blocks[currentBlock].height(); k <= i; k += this.blocks[currentBlock].height()){
+      currentBlock++;
+    } //Checks what block you're on by comparing all previous blocks summed height with row number
+    if ((i < 0) || (i >= this.height())) {
       throw new Exception("Row is outside of bounds");
     } else if (this.align == HAlignment.LEFT) {
-      String blockStr = this.blocks[i].row(i % this.blocks[i].height());
+      String blockStr = this.blocks[currentBlock].row(i % this.blocks[currentBlock].height());
       rowStr.append(blockStr);
-      rowStr.append(" ".repeat(this.width() - this.blocks[i].width()));
+      rowStr.append(" ".repeat(this.width() - this.blocks[currentBlock].width()));
     } else if (this.align == HAlignment.CENTER) {
-      int diffLeft = (this.width() - this.blocks[i].width()) / 2; // The difference on the left side
+      int diffLeft = (this.width() - this.blocks[currentBlock].width()) / 2; // The difference on the left side
       int diffRight = diffLeft;
-      if ((this.width() - this.blocks[i].width()) % 2 != 0) {
+      if ((this.width() - this.blocks[currentBlock].width()) % 2 != 0) {
         diffRight++;
       } // If it's an odd total difference the right side should be longer
       rowStr.append(" ".repeat(diffLeft));
-      String blockStr = this.blocks[i].row(i % this.blocks[i].height());
+      String blockStr = this.blocks[currentBlock].row(i % this.blocks[currentBlock].height());
       rowStr.append(blockStr);
       rowStr.append(" ".repeat(diffRight));
     } else if (this.align == HAlignment.RIGHT) {
-      int diff = this.width() - this.blocks[i].width(); // The number of spaces to be printed.
+      int diff = this.width() - this.blocks[currentBlock].width(); // The number of spaces to be printed.
       rowStr.append(" ".repeat(diff));
-      String blockStr = this.blocks[i].row(i % this.blocks[i].height());
+      String blockStr = this.blocks[currentBlock].row(i % this.blocks[currentBlock].height());
       rowStr.append(blockStr);
     } // If block checks that i is in range and then checks the horizontal alignment
     return rowStr.toString();
@@ -128,11 +132,19 @@ public class VComp implements AsciiBlock {
    * @return true if the two blocks are structurally equivalent and false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    if (this.getClass().equals(other.getClass()) && this.equals(other)) {
-      return true;
-    } //If the classes are and the contents are the same
-    else{
+    if (!(other instanceof VComp)){
       return false;
     }
+    VComp comp = (VComp) other;
+    if ((this.align != comp.align) || (this.blocks.length != comp.blocks.length)){
+      return false;
+    }
+    for (int i = 0; i < this.blocks.length; i++) {
+      if (!this.blocks[i].eqv(comp.blocks[i])){
+        return false;
+      }
+    }
+    return true;
   } // eqv(AsciiBlock)
 } // class VComp
+
