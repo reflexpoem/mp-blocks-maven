@@ -68,13 +68,15 @@ public class VComp implements AsciiBlock {
   public String row(int i) throws Exception {
     StringBuilder rowStr = new StringBuilder();
     int currentBlock = 0;
+    int lastRow = 0;
     for (int k = this.blocks[currentBlock].height(); k <= i; k += this.blocks[currentBlock].height()){
       currentBlock++;
+      lastRow = k;
     } //Checks what block you're on by comparing all previous blocks summed height with row number
     if ((i < 0) || (i >= this.height())) {
       throw new Exception("Row is outside of bounds");
     } else if (this.align == HAlignment.LEFT) {
-      String blockStr = this.blocks[currentBlock].row(i % this.blocks[currentBlock].height());
+      String blockStr = this.blocks[currentBlock].row((i - lastRow) % this.blocks[currentBlock].height());
       rowStr.append(blockStr);
       rowStr.append(" ".repeat(this.width() - this.blocks[currentBlock].width()));
     } else if (this.align == HAlignment.CENTER) {
@@ -84,13 +86,13 @@ public class VComp implements AsciiBlock {
         diffRight++;
       } // If it's an odd total difference the right side should be longer
       rowStr.append(" ".repeat(diffLeft));
-      String blockStr = this.blocks[currentBlock].row(i % this.blocks[currentBlock].height());
+      String blockStr = this.blocks[currentBlock].row((i - lastRow) % this.blocks[currentBlock].height());
       rowStr.append(blockStr);
       rowStr.append(" ".repeat(diffRight));
     } else if (this.align == HAlignment.RIGHT) {
       int diff = this.width() - this.blocks[currentBlock].width(); // The number of spaces to be printed.
       rowStr.append(" ".repeat(diff));
-      String blockStr = this.blocks[currentBlock].row(i % this.blocks[currentBlock].height());
+      String blockStr = this.blocks[currentBlock].row((i - lastRow) % this.blocks[currentBlock].height());
       rowStr.append(blockStr);
     } // If block checks that i is in range and then checks the horizontal alignment
     return rowStr.toString();
