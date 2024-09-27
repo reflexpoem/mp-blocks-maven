@@ -1,8 +1,6 @@
 package edu.grinnell.csc207.blocks;
 
-/**
- * The ways in which things can be aligned horizontally.
- */
+/** The ways in which things can be aligned horizontally. */
 public enum HAlignment {
   /** Align by the left column. */
   LEFT,

@@ -2,7 +2,6 @@ package edu.grinnell.csc207.blocks;
 
 import java.util.Arrays;
 
-
 /**
  * The vertical composition of blocks.
  *
@@ -15,14 +14,10 @@ public class VComp implements AsciiBlock {
   // | Fields |
   // +--------+
 
-  /**
-   * The blocks.
-   */
+  /** The blocks. */
   AsciiBlock[] blocks;
 
-  /**
-   * How the blocks are aligned.
-   */
+  /** How the blocks are aligned. */
   HAlignment align;
 
   // +--------------+------------------------------------------------------
@@ -60,39 +55,44 @@ public class VComp implements AsciiBlock {
    * Get one row from the block.
    *
    * @param i the number of the row
-   *
    * @return row i.
-   *
    * @exception Exception if i is outside the range of valid rows.
    */
   public String row(int i) throws Exception {
     StringBuilder rowStr = new StringBuilder();
     int currentBlock = 0;
     int lastRow = 0;
-    for (int k = this.blocks[currentBlock].height(); k <= i; k += this.blocks[currentBlock].height()){
+    for (int k = this.blocks[currentBlock].height();
+        k <= i;
+        k += this.blocks[currentBlock].height()) {
       currentBlock++;
       lastRow = k;
-    } //Checks what block you're on by comparing all previous blocks summed height with row number
+    } // Checks what block you're on by comparing all previous blocks summed height with row number
     if ((i < 0) || (i >= this.height())) {
       throw new Exception("Row is outside of bounds");
     } else if (this.align == HAlignment.LEFT) {
-      String blockStr = this.blocks[currentBlock].row((i - lastRow) % this.blocks[currentBlock].height());
+      String blockStr =
+          this.blocks[currentBlock].row((i - lastRow) % this.blocks[currentBlock].height());
       rowStr.append(blockStr);
       rowStr.append(" ".repeat(this.width() - this.blocks[currentBlock].width()));
     } else if (this.align == HAlignment.CENTER) {
-      int diffLeft = (this.width() - this.blocks[currentBlock].width()) / 2; // The difference on the left side
+      int diffLeft = (this.width() - this.blocks[currentBlock].width()) / 2; // The difference on
+      // the left side
       int diffRight = diffLeft;
       if ((this.width() - this.blocks[currentBlock].width()) % 2 != 0) {
         diffRight++;
       } // If it's an odd total difference the right side should be longer
       rowStr.append(" ".repeat(diffLeft));
-      String blockStr = this.blocks[currentBlock].row((i - lastRow) % this.blocks[currentBlock].height());
+      String blockStr =
+          this.blocks[currentBlock].row((i - lastRow) % this.blocks[currentBlock].height());
       rowStr.append(blockStr);
       rowStr.append(" ".repeat(diffRight));
     } else if (this.align == HAlignment.RIGHT) {
-      int diff = this.width() - this.blocks[currentBlock].width(); // The number of spaces to be printed.
+      int diff = this.width() - this.blocks[currentBlock].width(); // The number of spaces to be
+      // printed.
       rowStr.append(" ".repeat(diff));
-      String blockStr = this.blocks[currentBlock].row((i - lastRow) % this.blocks[currentBlock].height());
+      String blockStr =
+          this.blocks[currentBlock].row((i - lastRow) % this.blocks[currentBlock].height());
       rowStr.append(blockStr);
     } // If block checks that i is in range and then checks the horizontal alignment
     return rowStr.toString();
@@ -121,7 +121,7 @@ public class VComp implements AsciiBlock {
     for (int i = 0; i < this.blocks.length; i++) {
       if (this.blocks[i].width() > maxWidth) {
         maxWidth = this.blocks[i].width();
-      } //If the width of the current block is greater than the maxWidth
+      } // If the width of the current block is greater than the maxWidth
     } // Checks for the maximum width of any blocks
     return maxWidth;
   } // width()
@@ -130,23 +130,21 @@ public class VComp implements AsciiBlock {
    * Determine if another block is structurally equivalent to this block.
    *
    * @param other The block to compare to this block.
-   *
    * @return true if the two blocks are structurally equivalent and false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    if (!(other instanceof VComp)){
+    if (!(other instanceof VComp)) {
       return false;
     }
     VComp comp = (VComp) other;
-    if ((this.align != comp.align) || (this.blocks.length != comp.blocks.length)){
+    if ((this.align != comp.align) || (this.blocks.length != comp.blocks.length)) {
       return false;
     }
     for (int i = 0; i < this.blocks.length; i++) {
-      if (!this.blocks[i].eqv(comp.blocks[i])){
+      if (!this.blocks[i].eqv(comp.blocks[i])) {
         return false;
       }
     }
     return true;
   } // eqv(AsciiBlock)
 } // class VComp
-

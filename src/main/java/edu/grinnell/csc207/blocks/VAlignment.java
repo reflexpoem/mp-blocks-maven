@@ -1,8 +1,6 @@
 package edu.grinnell.csc207.blocks;
 
-/**
- * Vertical alignments.
- */
+/** Vertical alignments. */
 public enum VAlignment {
   /** Align to the top. */
   TOP,
@@ -11,4 +9,3 @@ public enum VAlignment {
   /** Align to the bottom. */
   BOTTOM
 } // enum VAlignment
-

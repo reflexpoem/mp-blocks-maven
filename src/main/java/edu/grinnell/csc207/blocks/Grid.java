@@ -11,19 +11,13 @@ public class Grid implements AsciiBlock {
   // | Fields |
   // +--------+
 
-  /**
-   * One element of the grid.
-   */
+  /** One element of the grid. */
   AsciiBlock element;
 
-  /**
-   * The number of times the element is repeated horizontally.
-   */
+  /** The number of times the element is repeated horizontally. */
   int hreps;
 
-  /**
-   * The number of times the element is repeated vertically.
-   */
+  /** The number of times the element is repeated vertically. */
   int vreps;
 
   // +--------------+------------------------------------------------------
@@ -33,9 +27,9 @@ public class Grid implements AsciiBlock {
   /**
    * Build a new grid with the specified arrangement.
    *
-   * @param gridElement      The element in the grid.
+   * @param gridElement The element in the grid.
    * @param horizRepetitions The number of horizontal repetitions in the grid.
-   * @param vertRepetitions  The number of vertical repetitions in the grid.
+   * @param vertRepetitions The number of vertical repetitions in the grid.
    */
   public Grid(AsciiBlock gridElement, int horizRepetitions, int vertRepetitions) {
     this.element = gridElement;
@@ -47,13 +41,10 @@ public class Grid implements AsciiBlock {
   // | Methods |
   // +---------+
 
-  /**
-   * Get one row from the block.
+ /**
    *
    * @param i the number of the row
-   *
    * @return row i.
-   *
    * @exception Exception If the row is invalid.
    */
   @Override
@@ -100,31 +91,22 @@ public class Grid implements AsciiBlock {
    * Determine if another block is structurally equivalent to this block.
    *
    * @param other The block to compare to this block.
-   *
-   * @return true if the two blocks are structurally equivalent and false
-   *         otherwise.
+   * @return true if the two blocks are structurally equivalent and false otherwise.
    */
   @Override
   public boolean eqv(AsciiBlock other) {
-    if (!(other instanceof Grid)) {
-      return false;
-    }
-    Grid otherGrid = (Grid) other;
-    return this.hreps == otherGrid.hreps &&
-        this.vreps == otherGrid.vreps &&
-        this.element.eqv(otherGrid.element);
-  }
+    return ((other instanceof Grid) && (this.eqv((Grid) other)));
+  } // eqv(AsciiBlock)
 
   /**
    * Determine if another grid is structurally equivalent to this grid.
    *
    * @param other The grid to compare to this grid.
-   *
-   * @return true if the two blocks are structurally equivalent and false
-   *         otherwise.
+   * @return true if the two blocks are structurally equivalent and false otherwise.
    */
   public boolean eqv(Grid other) {
-    return (this.hreps == other.hreps) && (this.vreps == other.vreps)
+    return (this.hreps == other.hreps)
+        && (this.vreps == other.vreps)
         && (this.element.eqv(other.element));
   } // eqv(Grid)
 } // class Grid

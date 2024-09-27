@@ -11,9 +11,7 @@ public class HFlip implements AsciiBlock {
   // | Fields |
   // +--------+
 
-  /**
-   * The original block.
-   */
+  /** The original block. */
   AsciiBlock block;
 
   // +--------------+------------------------------------------------------
@@ -37,9 +35,7 @@ public class HFlip implements AsciiBlock {
    * Get one row from the block, flipped horizontally.
    *
    * @param i the number of the row
-   *
    * @return row i, flipped horizontally.
-   *
    * @exception Exception If the row is invalid.
    */
   @Override
@@ -72,12 +68,11 @@ public class HFlip implements AsciiBlock {
   } // width()
 
   @Override
-public boolean eqv(AsciiBlock other) {
+  public boolean eqv(AsciiBlock other) {
     if (other instanceof HFlip) {
-        HFlip otherHFlip = (HFlip) other;
-        return this.block.eqv(otherHFlip.block);
+      HFlip otherHFlip = (HFlip) other;
+      return this.block.eqv(otherHFlip.block);
     }
     return false;
-}
-
+  }
 } // class HFlip

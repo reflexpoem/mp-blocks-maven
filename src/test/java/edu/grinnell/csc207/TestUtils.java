@@ -2,26 +2,20 @@ package edu.grinnell.csc207;
 
 import edu.grinnell.csc207.blocks.AsciiBlock;
 
-/**
- * Utilities for testing.
- */
+/** Utilities for testing. */
 public class TestUtils {
   // +-----------+---------------------------------------------------
   // | Utilities |
   // +-----------+
 
   /**
-   * Determine if two blocks are equal in that they have the same,
-   * width, height, and rows.
+   * Determine if two blocks are equal in that they have the same, width, height, and rows.
    *
-   * We do not rely on `AsciiBlock.equals` because someone may have
-   * changed it to better pass tests.
+   * <p>We do not rely on `AsciiBlock.equals` because someone may have changed it to better pass
+   * tests.
    *
-   * @param block1
-   *   One of the two blocks.
-   * @param block2
-   *   The other block.
-   *
+   * @param block1 One of the two blocks.
+   * @param block2 The other block.
    * @return true if they are in the same memory location and false otherwise.
    */
   public static boolean same(AsciiBlock block1, AsciiBlock block2) {
@@ -46,9 +40,7 @@ public class TestUtils {
   /**
    * Convert a block to a string.
    *
-   * @param block
-   *   The block to convert.
-   *
+   * @param block The block to convert.
    * @return the block with its rows separated by newlines.
    */
   public static String toString(AsciiBlock block) {
