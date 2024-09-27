@@ -43,6 +43,7 @@ public class Line implements AsciiBlock {
    * @exception Exception
    *   if i is outside the range of valid rows.
    */
+  @Override
   public String row(int i) throws Exception {
     if (i != 0) {
       throw new Exception("Invalid row " + i);
@@ -55,6 +56,7 @@ public class Line implements AsciiBlock {
    *
    * @return the number of rows
    */
+  @Override
   public int height() {
     return 1;
   } // height()
@@ -64,6 +66,7 @@ public class Line implements AsciiBlock {
    *
    * @return the number of columns
    */
+  @Override
   public int width() {
     return this.line.length();
   } // width()
@@ -77,8 +80,16 @@ public class Line implements AsciiBlock {
    * @return true if the two blocks are structurally equivalent and
    *    false otherwise.
    */
+  @Override
   public boolean eqv(AsciiBlock other) {
-    return false;       // STUB
+    // Check if the other block is an instance of Line
+    if (!(other instanceof Line)) {
+      return false;
+    }
+
+    // Cast the other block to Line and compare the contents
+    Line otherLine = (Line) other;
+    return this.line.equals(otherLine.line);
   } // eqv(AsciiBlock)
 
   // +---------------+-----------------------------------------------

@@ -29,10 +29,10 @@ public class Surrounded implements AsciiBlock {
    * Build a new block with the specified contents.
    *
    * @param blockContents
-   *   The contents of the block.
+   *                      The contents of the block.
    *
    * @param theChar
-   *   The character that we use to surround the block.
+   *                      The character that we use to surround the block.
    */
   public Surrounded(AsciiBlock blockContents, char theChar) {
     this.contents = blockContents;
@@ -51,7 +51,7 @@ public class Surrounded implements AsciiBlock {
    * @return row i.
    *
    * @exception Exception
-   *   If the row is invalid.
+   *                      If the row is invalid.
    */
   public String row(int i) throws Exception {
     int h = this.contents.height();
@@ -78,27 +78,41 @@ public class Surrounded implements AsciiBlock {
     return (this.contents.height() + 2);
   } // height()
 
-
-  
   /**
    * Determine how many columns are in the block.
    *
    * @return the numbrer of columns
    */
   public int width() {
-    return (this.contents.width() + 2);  
+    return (this.contents.width() + 2);
   } // width()
 
   /**
    * Determine if another block is structurally equivalent to this block.
    *
    * @param other
-   *   The block to compare to this block.
+   *              The block to compare to this block.
    *
    * @return true if the two blocks are structurally equivalent and
-   *    false otherwise.
+   *         false otherwise.
    */
+  /**
+   * Determine if another block is structurally equivalent to this block.
+   *
+   * @param other
+   *              The block to compare to this block.
+   *
+   * @return true if the two blocks are structurally equivalent and
+   *         false otherwise.
+   */
+  @Override
   public boolean eqv(AsciiBlock other) {
-    return this.contents.eqv(other); //MAY NOT WORK
+    if (other instanceof Surrounded) {
+      Surrounded otherSurrounded = (Surrounded) other;
+      // Check if the surround character and the contents are equivalent
+      return this.surroundChar.equals(otherSurrounded.surroundChar) &&
+          this.contents.eqv(otherSurrounded.contents);
+    }
+    return false;
   } // eqv(AsciiBlock)
 } // class Surrounded
