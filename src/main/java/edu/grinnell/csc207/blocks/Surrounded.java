@@ -4,7 +4,7 @@ package edu.grinnell.csc207.blocks;
  * A text block surrounded by a single letter.
  *
  * @author Samuel A. Rebelsky
- * @author Your Name Here
+ * @author Sebastian and Sunjae
  */
 public class Surrounded implements AsciiBlock {
   // +--------+------------------------------------------------------------

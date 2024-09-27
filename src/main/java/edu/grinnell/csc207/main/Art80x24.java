@@ -33,6 +33,8 @@ public class Art80x24 {
     AsciiBlock line2 = new Line("$&@!*($&(@*!))");
     AsciiBlock line3 = new Line("$@!*^$*@");
     AsciiBlock line4 = new Line("$&*!@$&*(@!&$(*@!&$*(&@!)))");
+
+  
     // Combine the lines vertically using VComp
     AsciiBlock abcd = new VComp(HAlignment.LEFT, new AsciiBlock[] {line1, line2, line3, line4});
     // Now create a horizontally flipped version of the block

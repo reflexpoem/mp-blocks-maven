@@ -98,7 +98,7 @@ public class DShift implements AsciiBlock {
       return false;
     }
     DShift oth = (DShift) other;
-      if (!(this.block.eqv(oth.block))&& (this.reps == oth.reps)){
+      if (!(this.block.eqv(oth.block)) && (this.reps == oth.reps)){
         return false;
       }
     return true;
