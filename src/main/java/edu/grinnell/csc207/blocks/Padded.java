@@ -43,12 +43,7 @@ public class Padded implements AsciiBlock {
    * @param paddedWidth The width of the padded block.
    * @param paddedHeight The height of the padded block.
    */
-  public Padded(
-      AsciiBlock original,
-      char ch,
-      HAlignment horiz,
-      VAlignment vert,
-      int paddedWidth,
+  public Padded(AsciiBlock original, char ch, HAlignment horiz, VAlignment vert, int paddedWidth,
       int paddedHeight) {
     this.block = original;
     this.pad = new String(new char[] {ch});
@@ -70,7 +65,7 @@ public class Padded implements AsciiBlock {
    * @exception Exception If the row is invalid.
    */
   public String row(int i) throws Exception {
-    throw new Exception("Not yet implemented"); // STUB
+    throw new Exception("Not yet implemented");
   } // row(int)
 
   /**
@@ -79,7 +74,7 @@ public class Padded implements AsciiBlock {
    * @return the number of rows
    */
   public int height() {
-    return 0; // STUB
+    return 0;
   } // height()
 
   /**
@@ -88,7 +83,7 @@ public class Padded implements AsciiBlock {
    * @return the number of columns
    */
   public int width() {
-    return 0; // STUB
+    return 0;
   } // width()
 
   /**
@@ -98,6 +93,6 @@ public class Padded implements AsciiBlock {
    * @return true if the two blocks are structurally equivalent and false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    return false; // STUB
+    return false;
   } // eqv(AsciiBlock)
 } // class Padded

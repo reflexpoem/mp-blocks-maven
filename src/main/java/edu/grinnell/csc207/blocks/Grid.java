@@ -54,7 +54,7 @@ public class Grid implements AsciiBlock {
 
     if (totalheight <= i || i < 0) {
       throw new Exception("Invalid row number");
-    }
+    } //if
 
     int elementRow = i % elementheight;
     String elementRowStr = this.element.row(elementRow);
@@ -62,7 +62,7 @@ public class Grid implements AsciiBlock {
     StringBuilder result = new StringBuilder();
     for (int j = 0; j < hreps; j++) {
       result.append(elementRowStr);
-    }
+    } //for
 
     return result.toString();
   } // row(int)

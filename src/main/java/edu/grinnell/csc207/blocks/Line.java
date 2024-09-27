@@ -76,7 +76,7 @@ public class Line implements AsciiBlock {
     // Check if the other block is an instance of Line
     if (!(other instanceof Line)) {
       return false;
-    }
+    } //if
 
     // Cast the other block to Line and compare the contents
     Line otherLine = (Line) other;

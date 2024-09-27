@@ -1,6 +1,5 @@
 package edu.grinnell.csc207.blocks;
 
-import java.util.Arrays;
 
 /**
  * The diagonally shifted composition of a block.
@@ -27,7 +26,7 @@ public class DShift implements AsciiBlock {
   /**
    * Build a diagonally shifted composition of multiple blocks.
    *
-   * @param blocksToCompose The blocks we will be composing.
+   * @param blockToCompose The blocks we will be composing.
    * @param repetitions The number of rows
    */
   public DShift(AsciiBlock blockToCompose, int repetitions) {
@@ -52,22 +51,21 @@ public class DShift implements AsciiBlock {
 
     if (totalHeight <= i || i < 0) {
       throw new Exception("Invalid row number");
-    }
+    } //if
 
     int blockRow = i % blockHeight;
     String blockRowString = this.block.row(blockRow);
 
     StringBuilder result = new StringBuilder();
-    if (i != 0){
-    result.append(" ".repeat(i));
-    result.append(blockRowString);
-    }
-    else {
+    if (i != 0) {
+      result.append(" ".repeat(i));
       result.append(blockRowString);
-    }
+    } else {
+      result.append(blockRowString);
+    } //if/else
 
     return result.toString();
-  }
+  } //row(int i)
 
   /**
    * Determine how many rows are in the block.
@@ -96,11 +94,11 @@ public class DShift implements AsciiBlock {
   public boolean eqv(AsciiBlock other) {
     if (!(other instanceof DShift)) {
       return false;
-    }
+    } //if
     DShift oth = (DShift) other;
-      if (!(this.block.eqv(oth.block)) && (this.reps == oth.reps)){
-        return false;
-      }
+    if (!(this.block.eqv(oth.block)) && (this.reps == oth.reps)) {
+      return false;
+    } //if
     return true;
   } // eqv(AsciiBlock)
 } // class Dshift

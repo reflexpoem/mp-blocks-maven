@@ -7,7 +7,6 @@ import java.util.Arrays;
  *
  * @author Samuel A. Rebelsky
  * @author Sebastian
- * @author Sunjae
  */
 public class VComp implements AsciiBlock {
   // +--------+------------------------------------------------------------
@@ -135,16 +134,16 @@ public class VComp implements AsciiBlock {
   public boolean eqv(AsciiBlock other) {
     if (!(other instanceof VComp)) {
       return false;
-    }
+    } //if
     VComp comp = (VComp) other;
     if ((this.align != comp.align) || (this.blocks.length != comp.blocks.length)) {
       return false;
-    }
+    } //if
     for (int i = 0; i < this.blocks.length; i++) {
       if (!this.blocks[i].eqv(comp.blocks[i])) {
         return false;
-      }
-    }
+      } //if
+    } //for
     return true;
   } // eqv(AsciiBlock)
 } // class VComp

@@ -51,7 +51,7 @@ public interface AsciiBlock {
   public static boolean eqv(AsciiBlock block1, AsciiBlock block2) {
     if (!block1.getClass().equals(block2.getClass())) {
       return false;
-    }
+    } //if
     return block1.eqv(block2);
   } // eqv(AsciiBlock, AsciiBlock)
 

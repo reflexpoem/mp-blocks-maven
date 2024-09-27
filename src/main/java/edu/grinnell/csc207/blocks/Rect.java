@@ -85,10 +85,10 @@ public class Rect implements AsciiBlock {
   public boolean eqv(AsciiBlock other) {
     if (!(other instanceof Rect)) {
       return false;
-    }
+    } //if
     Rect otherRect = (Rect) other;
     return this.height == otherRect.height && this.row.equals(otherRect.row);
-  }
+  } //eqv(AsciiBlock other)
 
   // +---------------+-----------------------------------------------
   // | Other methods |

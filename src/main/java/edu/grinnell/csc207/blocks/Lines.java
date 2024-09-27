@@ -96,6 +96,6 @@ public class Lines implements AsciiBlock {
    * @return true if the two blocks are structurally equivalent and false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    return false; // STUB
+    return false;
   } // eqv(AsciiBlock)
 } // class Lines

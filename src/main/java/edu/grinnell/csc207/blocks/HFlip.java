@@ -42,7 +42,7 @@ public class HFlip implements AsciiBlock {
   public String row(int i) throws Exception {
     if (i < 0 || i >= block.height()) {
       throw new Exception("Row index out of bounds.");
-    }
+    } //if
     String originalRow = block.row(i);
     return new StringBuilder(originalRow).reverse().toString();
   } // row(int)
@@ -67,12 +67,18 @@ public class HFlip implements AsciiBlock {
     return block.width();
   } // width()
 
+  /**
+   * Determines if a block is structurally equivalent to another block.
+   *
+   * @param other the block to be compared to
+   * @return true if equal otherwise false
+   */
   @Override
   public boolean eqv(AsciiBlock other) {
     if (other instanceof HFlip) {
       HFlip otherHFlip = (HFlip) other;
       return this.block.eqv(otherHFlip.block);
-    }
+    } //if
     return false;
-  }
+  } //eqv(AsciiBlock other)
 } // class HFlip
