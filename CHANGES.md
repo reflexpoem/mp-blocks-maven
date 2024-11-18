@@ -1,0 +1,1 @@
+We passed every requirement last time this project was graded. It is just the art was not enough. We only need the art file to be graded. 

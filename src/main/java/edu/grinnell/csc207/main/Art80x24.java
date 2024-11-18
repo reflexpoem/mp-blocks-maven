@@ -1,86 +1,52 @@
 package edu.grinnell.csc207.main;
 
-
-import java.io.PrintWriter;
-import java.util.Random;
-
-
 import edu.grinnell.csc207.blocks.AsciiBlock;
 import edu.grinnell.csc207.blocks.Boxed;
+import edu.grinnell.csc207.blocks.Grid;
 import edu.grinnell.csc207.blocks.HAlignment;
 import edu.grinnell.csc207.blocks.HComp;
-import edu.grinnell.csc207.blocks.HFlip;
-import edu.grinnell.csc207.blocks.Line;
-import edu.grinnell.csc207.blocks.Lines;
 import edu.grinnell.csc207.blocks.Rect;
 import edu.grinnell.csc207.blocks.VAlignment;
 import edu.grinnell.csc207.blocks.VComp;
-import edu.grinnell.csc207.blocks.VFlip;
-
+import java.io.PrintWriter;
 
 /**
- * Creates and prints an amazing 80x24 ASCII artwork filled with hearts and modified randomly.
+ * Create and print an amazing 80x24 ASCII artwork.
+ * 
+ * This program constructs an ASCII art representation of a flag using various
+ * AsciiBlock components and alignment classes.
+ * 
+ * @author Sunjae Kim
+ * @author Sebastian Manza
  */
 public class Art80x24 {
 
-
   /**
-   * Main method to generate the ASCII art.
+   * Main method to create and print the artwork.
    *
-   * @param args the command-line arguments (currently ignored)
-   * @throws Exception if something goes wrong with one of the underlying classes
+   * @param args Command-line arguments (currently ignored).
+   * @throws Exception If something goes wrong with one of the underlying classes.
    */
   public static void main(String[] args) throws Exception {
-    // Create a PrintWriter for console output
     PrintWriter pen = new PrintWriter(System.out, true);
-    Random random = new Random();
 
+    // Blue dots and white lines for flag representation
+    AsciiBlock blueDot = new Boxed(new Rect('~', 1, 1));
+    AsciiBlock blueAreaLeft = new Grid(blueDot, 10, 3);
+    AsciiBlock blueAreaRight = new Grid(blueDot, 10, 3);
+    AsciiBlock whiteLine = new Grid(new Rect('#', 1, 1), 30, 6);
+    AsciiBlock whiteColumn = new Grid(new Rect('#', 1, 1), 10, 24);
 
-    // Create a basic heart pattern (20 hearts per line to fill 80 characters wide)
-    String heartLine = "<3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3";
+    // Construct the one-third section of the flag
+    AsciiBlock oneThird = new VComp(HAlignment.RIGHT, new AsciiBlock[] { blueAreaLeft, whiteLine, blueAreaRight });
 
-    // Create 24 lines of heart pattern to fill the 80x24 grid
-    AsciiBlock heartBlock = new Lines(new String[] {heartLine, heartLine, heartLine, heartLine,
-        heartLine, heartLine, heartLine, heartLine, heartLine, heartLine, heartLine, heartLine,
-        heartLine, heartLine, heartLine, heartLine, heartLine, heartLine, heartLine, heartLine,
-        heartLine, heartLine, heartLine, heartLine}); // ascii block
+    // Combine the sections into the full flag
+    AsciiBlock leftOfFlag = new HComp(VAlignment.TOP, new AsciiBlock[] { oneThird, whiteColumn, oneThird });
 
-
-    // Randomly apply transformations
-    AsciiBlock transformedBlock = heartBlock;
-    for (int i = 0; i < 5; i++) {
-      int transformation = random.nextInt(5);
-      switch (transformation) {
-        case 0:
-          transformedBlock = new HFlip(transformedBlock);
-          break;
-        case 1:
-          transformedBlock = new VFlip(transformedBlock);
-          break;
-        case 2:
-          transformedBlock = new Boxed(transformedBlock);
-          break;
-        case 3:
-          transformedBlock = new HComp(VAlignment.CENTER,
-              new AsciiBlock[] {transformedBlock, new Rect('*', 5, 5)});
-          break;
-        case 4:
-          transformedBlock = new VComp(HAlignment.CENTER,
-              new AsciiBlock[] {new Line("Random hearts"), transformedBlock});
-          break;
-        default:
-          break;
-      } // switch case
-    } // for
-
-
-    // Print the final transformed heart block
-    AsciiBlock.print(pen, transformedBlock);
-
+    // Print the final artwork
+    AsciiBlock.print(pen, leftOfFlag);
 
     // Close the PrintWriter
     pen.close();
   } // main(String[])
 } // class Art80x24
-
-
